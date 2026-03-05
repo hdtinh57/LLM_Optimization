@@ -33,3 +33,5 @@ wandb/
 # Markdown tracking (Exclude all markdown except README for Git)
 *.md
 !README.md
+llama.cpp/
+llama-b8204-bin-win-cuda-12.4-x64/

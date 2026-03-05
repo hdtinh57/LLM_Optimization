@@ -1,0 +1,10 @@
+FROM ./outputs/quantized/Qwen3.5-0.8B-unsloth_gguf/Qwen3.5-0.8B.Q4_K_M.gguf
+
+# Set default parameters
+PARAMETER temperature 0.7
+PARAMETER top_p 0.9
+
+# System Prompt
+SYSTEM """
+Bạn là một trợ lý AI phân tích và giải toán theo phương pháp Chain of Thought (CoT). Bạn sẽ phân tích từng bước cẩn thận trước khi đưa ra câu trả lời cuối cùng.
+"""
