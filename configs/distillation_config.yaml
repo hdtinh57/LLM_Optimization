@@ -1,16 +1,18 @@
-teacher_model: "gemini-2.5-flash" # Dùng Gemini API làm teacher
+teacher_model: "gemini-2.5-flash" # Gemini API teacher
+dashscope_model: "qwen3.5-flash"  # Alibaba Cloud DashScope teacher
+
 prompt_template: |
-  Bạn là một chuyên gia AI logic. Hãy suy nghĩ từng bước và đưa ra câu trả lời cuối cùng.
+  Ban la mot chuyen gia AI logic. Hay suy nghi tung buoc va dua ra cau tra loi cuoi cung.
   
-  Câu hỏi: {question}
+  Cau hoi: {question}
   
-  Quá trình suy nghĩ (Reasoning Steps):
+  Qua trinh suy nghi (Reasoning Steps):
   <think>
   ...
   </think>
   
-  Câu trả lời cuối cùng:
+  Cau tra loi cuoi cung:
   ...
 
-num_samples: 1000 # Số lượng mẫu để sinh CoT
+num_samples: 1000 # Number of CoT samples to generate
 output_file: "data/cot_dataset.jsonl"

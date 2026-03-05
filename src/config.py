@@ -95,6 +95,7 @@ class QuantizationConfig(BaseYamlConfig):
 class DistillationConfig(BaseYamlConfig):
     yaml_file: str = "configs/distillation_config.yaml"
     teacher_model: str = "gemini-2.5-flash"
+    dashscope_model: str = "qwen3.5-flash"
     prompt_template: str = ""
     num_samples: int = 1000
     output_file: str = "data/cot_dataset.jsonl"
@@ -104,6 +105,7 @@ class Settings(BaseSettings):
     """Main Settings class aggregating all configurations and environment variables."""
     # Env vars
     gemini_api_key: Optional[str] = Field(default=None, alias="GEMINI_API_KEY")
+    dashscope_api_key: Optional[str] = Field(default=None, alias="DASHSCOPE_API_KEY")
     wandb_api_key: Optional[str] = Field(default=None, alias="WANDB_API_KEY")
     hf_token: Optional[str] = Field(default=None, alias="HF_TOKEN")
     
