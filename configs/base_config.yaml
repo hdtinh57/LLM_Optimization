@@ -1,22 +1,22 @@
 # Base Model & Checkpoint Settings
-model_id: "Qwen/Qwen3.5-4B"
-output_dir: "outputs/models/qlora-qwen3.5-4b"
+model_id: "Qwen/Qwen3.5-0.8B"
+output_dir: "outputs/models/qlora-qwen3.5-0.8b"
 
 # Dataset Settings
 dataset_name: "TIGER-Lab/MathInstruct" # Phù hợp cho CoT reasoning
-max_seq_len: 2048
+max_seq_len: 512
 
 # QLoRA Hyperparameters
-lora_r: 16
-lora_alpha: 32
+lora_r: 8
+lora_alpha: 16
 lora_dropout: 0.05
 # target_modules cho Qwen3.5 (cần verify với library peft, bao gồm cả Gated DeltaNet modules nếu có thể)
 target_modules:
   ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
 
 # Training Hyperparameters
-per_device_train_batch_size: 2
-gradient_accumulation_steps: 4
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 8
 learning_rate: 2.0e-4
 num_train_epochs: 3
 logging_steps: 10

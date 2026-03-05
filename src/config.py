@@ -19,9 +19,12 @@ class BaseYamlConfig(BaseSettings):
     @classmethod
     def load_from_yaml(cls, data: Any) -> Any:
         yaml_path = data.get("yaml_file")
+        if yaml_path is None and "yaml_file" in cls.model_fields:
+            yaml_path = cls.model_fields["yaml_file"].default
+
         if yaml_path and os.path.exists(yaml_path):
             yaml_data = load_yaml(yaml_path)
-            # Update data with yaml data, but respect environment variables if passed (Pydantic handles this later)
+            # Update data with yaml data, but respect environment variables if passed
             for k, v in yaml_data.items():
                 if k not in data:
                     data[k] = v
