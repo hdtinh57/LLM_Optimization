@@ -1,0 +1,16 @@
+teacher_model: "gemini-2.5-flash" # Dùng Gemini API làm teacher
+prompt_template: |
+  Bạn là một chuyên gia AI logic. Hãy suy nghĩ từng bước và đưa ra câu trả lời cuối cùng.
+  
+  Câu hỏi: {question}
+  
+  Quá trình suy nghĩ (Reasoning Steps):
+  <think>
+  ...
+  </think>
+  
+  Câu trả lời cuối cùng:
+  ...
+
+num_samples: 1000 # Số lượng mẫu để sinh CoT
+output_file: "data/cot_dataset.jsonl"

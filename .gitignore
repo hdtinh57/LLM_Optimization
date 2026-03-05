@@ -1,0 +1,35 @@
+venv/
+.env
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE
+.vscode/
+.idea/
+
+# Checkpoints and models
+outputs/models/
+outputs/quantized/
+outputs/benchmarks/
+outputs/logs/
+*.safetensors
+*.bin
+*.pt
+*.gguf
+*.onnx
+
+# Data
+data/
+*.csv
+*.jsonl
+
+# Unsloth & Temp caches
+unsloth_compiled_cache/
+temp_verify.txt
+temp_*.txt
+wandb/
+
+# Markdown tracking (Exclude all markdown except README for Git)
+*.md
+!README.md

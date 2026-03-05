@@ -1,0 +1,38 @@
+--extra-index-url https://download.pytorch.org/whl/cu128
+torch==2.7.0+cu128
+torchvision==0.22.0+cu128
+torchaudio==2.7.0+cu128
+
+# Core LLM Libraries
+transformers>=4.48.0
+accelerate>=0.33.0
+datasets>=3.0.0
+evaluate>=0.4.3
+bitsandbytes>=0.43.0
+peft>=0.12.0
+trl>=0.10.0
+
+# Quantization (AWQ/GPTQ/GGUF)
+# autoawq>=0.2.6 # Thường bị lỗi build wheel trên Windows, install pre-built sau
+# auto_gptq<=0.7.1 # Requires PyTorch installed first
+optimum>=1.22.0
+# llama-cpp-python>=0.3.0 # Lỗi thiếu CMAKE_C_COMPILER trên Windows
+
+# Distillation & Benchmarking
+lm-eval>=0.4.3
+rouge-score>=0.1.2
+nltk>=3.9.1
+
+# API & Deployment
+fastapi>=0.112.0
+uvicorn>=0.30.6
+pydantic>=2.8.2
+pydantic-settings>=2.4.0
+
+# Utils & Tracking
+wandb>=0.17.6
+tqdm>=4.66.5
+python-dotenv>=1.0.1
+
+# Qwen3.5 related requirements (using latest transformers)
+flash-attn>=2.6.3 ; sys_platform != "win32" # Optional, hard to build on windows sometimes, using generic attention if failed

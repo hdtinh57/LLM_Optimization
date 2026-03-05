@@ -1,0 +1,14 @@
+awq:
+  w_bit: 4
+  q_group_size: 128
+  zero_point: true
+  version: "GEMM"
+
+gptq:
+  bits: 4
+  group_size: 128
+  desc_act: false
+  sym: true
+
+gguf:
+  qtype: "q4_k_m" # hoặc q5_k_m
