@@ -10,6 +10,9 @@ os.environ["TORCHDYNAMO_DISABLE"] = "1"
 # Add project root to sys.path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from dotenv import load_dotenv
+load_dotenv()
+
 from src.config import settings
 from src.models.trainer import setup_unsloth_model, create_trainer
 

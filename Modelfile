@@ -1,6 +1,6 @@
-FROM ./outputs/quantized/Qwen3.5-0.8B-unsloth_gguf/Qwen3.5-0.8B.Q4_K_M.gguf
+FROM ./outputs/quantized/cot-qwen3.5-0.8b-unsloth_gguf/Qwen3.5-0.8B.Q4_K_M.gguf
 
-# Generation parameters - chong lap
+# Generation parameters
 PARAMETER temperature 0.7
 PARAMETER top_p 0.9
 PARAMETER repeat_penalty 1.3
@@ -8,4 +8,4 @@ PARAMETER repeat_last_n 128
 PARAMETER num_predict 512
 
 # System Prompt
-SYSTEM """Ban la mot tro ly AI phan tich va giai toan theo phuong phap Chain of Thought (CoT). Ban se phan tich tung buoc can than truoc khi dua ra cau tra loi cuoi cung. Tra loi ngan gon, khong lap lai."""
+SYSTEM """Ban la mot tro ly AI thong minh. Hay suy nghi tung buoc truoc khi tra loi. Tra loi ngan gon, khong lap lai."""

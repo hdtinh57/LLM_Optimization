@@ -1,5 +1,5 @@
 teacher_model: "gemini-2.5-flash" # Gemini API teacher
-dashscope_model: "qwen3.5-flash"  # Alibaba Cloud DashScope teacher
+dashscope_model: "qwen3-max"  # Alibaba Cloud DashScope teacher
 
 prompt_template: |
   Ban la mot chuyen gia AI logic. Hay suy nghi tung buoc va dua ra cau tra loi cuoi cung.

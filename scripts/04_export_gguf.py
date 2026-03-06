@@ -18,65 +18,69 @@ def dummy_get_statistics(*args, **kwargs):
     pass
 unsloth.models._utils.get_statistics = dummy_get_statistics
 
-def export_to_gguf(quantization_methods: list):
+def export_to_gguf(model_path: str, output_name: str, quantization_methods: list):
     """
     Load fine-tuned model and export it to GGUF formats natively using Unsloth.
     Automatically merges LoRA weights into the base model before quantizing.
     """
-    model_path = settings.base.output_dir
     output_dir = "outputs/quantized"
     Path(output_dir).mkdir(parents=True, exist_ok=True)
     
     if not Path(model_path).exists():
-        print(f"Lỗi: Không tìm thấy model tại {model_path}. Vui lòng chạy 03_train_qlora.py trước.")
+        print(f"Error: Model not found at {model_path}.")
         sys.exit(1)
 
-    print(f"Đang tải model (Base + LoRA) từ: {model_path}...")
+    print(f"Loading model (Base + LoRA) from: {model_path}...")
     model, tokenizer = FastLanguageModel.from_pretrained(
         model_name = model_path,
         max_seq_length = settings.base.max_seq_len,
         dtype = None,
         load_in_4bit = True, 
-        local_files_only = True, # Bypass unsloth statistics/HF telemetry timeout
+        local_files_only = True,
     )
     
-    # Save the model in GGUF
-    base_model_name = settings.base.model_id.split("/")[-1]
-
     for q_method in quantization_methods:
-        print(f"\n[{q_method}] Đang xuất và Quantize model sang GGUF...")
-        save_path = os.path.join(output_dir, f"{base_model_name}-unsloth")
+        print(f"\n[{q_method}] Exporting and quantizing to GGUF...")
+        save_path = os.path.join(output_dir, f"{output_name}-unsloth")
         
         try:
-            # Unsloth calls llama.cpp locally (downloads if necessary) to export the gguf file.
             model.save_pretrained_gguf(
                 save_path, 
                 tokenizer, 
                 quantization_method = q_method
             )
-            print(f"✅ Đã lưu GGUF ({q_method}) thành công.")
+            print(f"OK: Saved GGUF ({q_method}) successfully.")
         except Exception as e:
-            print(f"⚠️ Không thể xuất trực tiếp sang GGUF (Lỗi: {e}).")
-            print("Chuyển sang phương án dự phòng: Lưu model merged 16-bit (safetensors).")
-            # Fallback to saving merged 16-bit HF model. You can manually use llama.cpp to convert this later.
-            fallback_path = os.path.join(output_dir, f"{base_model_name}-merged-16bit")
+            print(f"WARNING: Direct GGUF export failed ({e}).")
+            print("Fallback: Saving merged 16-bit safetensors...")
+            fallback_path = os.path.join(output_dir, f"{output_name}-merged-16bit")
             model.save_pretrained_merged(fallback_path, tokenizer, save_method="merged_16bit")
-            print(f"✅ Đã lưu fallback 16-bit model tại: {fallback_path}")
-            print("Vui lòng tải llama.cpp binary cho Windows và chạy lồng để biên dịch sang GGUF thủ công.")
+            print(f"OK: Saved fallback 16-bit model at: {fallback_path}")
         
 def main():
     parser = argparse.ArgumentParser(description="Export Unsloth model to GGUF using Llama.cpp")
+    parser.add_argument("--model-path", type=str, default=settings.base.output_dir,
+                        help="Path to the trained model directory")
+    parser.add_argument("--name", type=str, default=None,
+                        help="Output name prefix (default: derived from model_id)")
     parser.add_argument("--methods", type=str, nargs="+", 
                         default=[settings.quantization.gguf.qtype],
-                        help="Tùy chọn danh sách format: f16, q4_k_m, q8_0, etc.")
+                        help="Quantization methods: f16, q4_k_m, q8_0, etc.")
     args = parser.parse_args()
 
-    print("="*50)
-    print("Khởi chạy Tiến trình GGUF Export (Unsloth + Llama.cpp)")
-    print("="*50)
+    output_name = args.name or settings.base.model_id.split("/")[-1]
+
+    print("=" * 60)
+    print("GGUF Export (Unsloth + Llama.cpp)")
+    print("=" * 60)
+    print(f"  Model Path : {args.model_path}")
+    print(f"  Output Name: {output_name}")
+    print(f"  Methods    : {args.methods}")
+    print("=" * 60)
     
-    export_to_gguf(args.methods)
-    print("\nHoàn tất Export.")
+    export_to_gguf(args.model_path, output_name, args.methods)
+    print("\nExport complete.")
 
 if __name__ == "__main__":
     main()
+
