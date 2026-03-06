@@ -20,7 +20,7 @@ outputs/logs/
 *.onnx
 
 # Data
-data/
+/data/
 *.csv
 *.jsonl
 
