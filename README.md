@@ -1,6 +1,6 @@
-# Project 2: LLM Optimization & CoT Distillation Pipeline
+# LLM Optimization & CoT Distillation Pipeline
 
-An end-to-end LLM fine-tuning, knowledge distillation, and deployment pipeline explicitly optimized for consumer hardware (8GB VRAM RTX 3070). This project demonstrates how to distill reasoning capabilities (Chain-of-Thought) from large commercial models into a small, fast local model, and deploy it efficiently.
+An end-to-end LLM fine-tuning, knowledge distillation, and deployment pipeline explicitly optimized for consumer hardware (8GB VRAM RTX 3070). This pipeline demonstrates how to distill reasoning capabilities (Chain-of-Thought) from large commercial models into a small, fast local model, and deploy it efficiently.
 
 ## 🚀 Key Features
 
@@ -20,7 +20,7 @@ An end-to-end LLM fine-tuning, knowledge distillation, and deployment pipeline e
 | **Peak VRAM**   | 1.47 GB                                       | 1.48 GB                                                                                                       |
 | **Qualitative** | Direct, sometimes generic, hallucinates logic | Explicitly outputs reasoning steps wrapped in `<think>...</think>` tags before answering. Coherent structure. |
 
-## 📂 Project Structure
+## 📂 Directory Structure
 
 - `configs/`: Contains YAML configurations for standard training, quantization, and distillation.
 - `src/`: Core logic (data processing, model configuration, `SFTTrainer` wrapper).
